@@ -684,8 +684,14 @@
     // Clone cards for infinite loop
     ticker.innerHTML += ticker.innerHTML;
 
+    var lastFrame = 0;
+    var deltaTime = 0;
     var pos = 0;
-    var speed = window.innerWidth <= 768 ? 1.0 : 0.7;
+    //var speed = window.innerWidth <= 768 ? 1.0 : 0.7;
+    var secondsPerScroll = 45; // Amount of time one full ticker loop should take
+    var fullSpeed = ticker.scrollWidth / (secondsPerScroll * 2); 
+    var speed = fullSpeed
+    var targetSpeed = fullSpeed;
     var halfW = ticker.scrollWidth / 2;
     var dragging = false;
     var dragStartX = 0;
@@ -693,9 +699,18 @@
     var autoPlay = true;
     var raf;
 
-    function step() {
+    // https://www.rorydriscoll.com/2016/03/07/frame-rate-independent-damping-using-lerp/
+    function lerp(a, b, lambda, dt)
+    {
+      return a + (1 - Math.exp(-lambda * dt)) * (b - a);
+    }
+
+    function step(time) {
+      deltaTime = (time - lastFrame) / 1000;
+      lastFrame = time;
       if (autoPlay && !dragging) {
-        pos += speed;
+        speed = lerp(speed, targetSpeed, 0.99, deltaTime*2);
+        if (Math.abs(speed) > 1) pos += speed * deltaTime;
         if (pos >= halfW) pos -= halfW;
         ticker.style.transform = 'translateX(' + (-pos) + 'px)';
       }
@@ -709,6 +724,7 @@
       dragging = true; autoPlay = false;
       dragStartX = e.clientX; dragStartPos = pos;
       ticker.style.cursor = 'grabbing';
+      targetSpeed = 0; speed = 0;
     });
     window.addEventListener('mousemove', function(e) {
       if (!dragging) return;
@@ -722,6 +738,12 @@
       if (!dragging) return;
       dragging = false; autoPlay = true;
       ticker.style.cursor = '';
+    });
+    ticker.addEventListener('mouseenter', function(e) {
+      targetSpeed = 0;
+    });
+    ticker.addEventListener('mouseleave', function(e) {
+      targetSpeed = fullSpeed;
     });
 
     // TOUCH drag (mobile)
