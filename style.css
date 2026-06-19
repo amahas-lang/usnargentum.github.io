@@ -85,16 +85,16 @@ section { padding:6rem 2.5rem; }
 .section-body { color:var(--muted); line-height:1.8; max-width:620px; font-size:1rem; }
 .container { max-width:1200px; margin:0 auto; }
 
-
 /* ABOUT */
 #about-heading, #team-heading, #sponsors-heading {
     scroll-margin-top: 88px;
 }
 #about {
     background-image: url('/static/img/2.png');
-    background-size: 100%;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    background-color: #000;
     position: relative;
     padding: 8rem 2.5rem;
     min-height: 60vh;
@@ -141,13 +141,6 @@ section { padding:6rem 2.5rem; }
 }
 .about-goal-card p { font-size:0.9rem; color:var(--muted); line-height:1.7; }
 @media(max-width:600px) { .about-goals { grid-template-columns:1fr; } }
-@media(max-width:768px) {
-    #about {
-        background-size: 250%;
-        background-position: center center;
-        min-height: 50vh;
-    }
-}
 
 /* TEAM */
 #team { background:var(--bg2); overflow:hidden; padding:8rem 0; }
@@ -307,10 +300,19 @@ footer { background:#0b0c11; padding:0.5rem 0.5rem; }
     .hero-logo { width:200px; }
     .section-title { font-size:1.6rem; }
     .section-body { font-size:0.85rem; line-height:1.6; }
-    .about-center .section-body { font-size:0.85rem; }
+    .about-center .section-body { font-size:1rem; font-weight:700; color:#ffffff; }
+    .about-center .section-title { font-size:2rem; color:#ffffff; font-weight:900; }
     .about-goal-card { padding:1.2rem; }
     .about-goal-card h3 { font-size:1.1rem; }
     .about-goals { gap:1rem; }
+    #about {
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-color: #000;
+        min-height: 50vh;
+        padding: 4rem 1.2rem;
+    }
     #sponsors { padding:0 1.2rem; height:100svh; display:flex; align-items:center; justify-content:center; }
     .sponsors-center { width:100%; }
     .sponsor-logos { gap:3rem; margin-top:2.5rem; }
