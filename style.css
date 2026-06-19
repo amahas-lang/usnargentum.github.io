@@ -92,11 +92,12 @@ section { padding:6rem 2.5rem; }
 }
 #about {
     background-image: url('/static/img/2.png');
-    background-size: cover;
+    background-size: 100%;
     background-position: center;
+    background-repeat: no-repeat;
     position: relative;
     padding: 8rem 2.5rem;
-    min-height: 100svh;
+    min-height: 60vh;
     display: flex;
     align-items: center;
 }
@@ -114,11 +115,11 @@ section { padding:6rem 2.5rem; }
     max-width:780px; margin:0 auto; text-align:center;
 }
 .about-center .section-label { display:block; }
-.about-center .section-title { margin-bottom:1.5rem; color:#ffffff; font-weight:900; }
+.about-center .section-title { margin-bottom:1.5rem; color:#ffffff; font-weight:900; font-size:clamp(3rem,6vw,5rem); }
 .about-center .section-body {
     max-width:100%; margin:0 auto 3rem;
-    font-size:1.05rem; line-height:1.85;
-    color:#ffffff; font-weight:600;
+    font-size:1.3rem; line-height:1.85;
+    color:#ffffff; font-weight:700;
 }
 .about-goals {
     display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;
@@ -140,7 +141,13 @@ section { padding:6rem 2.5rem; }
 }
 .about-goal-card p { font-size:0.9rem; color:var(--muted); line-height:1.7; }
 @media(max-width:600px) { .about-goals { grid-template-columns:1fr; } }
-
+@media(max-width:768px) {
+    #about {
+        background-size: 250%;
+        background-position: center center;
+        min-height: 50vh;
+    }
+}
 
 /* TEAM */
 #team { background:var(--bg2); overflow:hidden; padding:8rem 0; }
